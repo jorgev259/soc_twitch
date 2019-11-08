@@ -1,19 +1,28 @@
-const TwitchBot = require('twitch-bot')
-let current
-
-const Bot = new TwitchBot({
-  username: 'ChitoWarlock',
-  oauth: 'oauth:wte5f90a9ntchorsqbzzzr0chjqkgs',
+const tmi = require('tmi.js')
+const config = require('config.json')
+const options = {
+  options: {
+    debug: false
+  },
+  connection: {
+    reconnect: true
+  },
+  identity: {
+    username: config.username,
+    password: config.password
+  },
   channels: ['sittingonclouds']
-})
+}
 
-Bot.on('error', err => {
-  console.log(err)
-})
+const Client = tmi.client
+const client = new Client(options)
+let current
+client.connect()
 
-Bot.on('message', chatter => {
-  if (chatter.message === '!playing' && current) {
-    Bot.say(`Now Playing: ${current.artist} - ${current.title}`, 'sittingonclouds')
+client.on('chat', (channel, userstate, message, self) => {
+  console.log(message)
+  if (message === '!playing' && current) {
+    client.say(channel, `Now Playing: ${current.artist} - ${current.title}`, 'sittingonclouds')
   }
 })
 
@@ -21,5 +30,5 @@ var socket = require('socket.io-client')('https://api.sittingonclouds.net')
 socket.on('metadata', async (data) => {
   console.log(data)
   current = data
-  Bot.say(`Now Playing: ${data.artist} - ${data.title}`, 'sittingonclouds')
+  client.say('sittingonclouds', `Now Playing: ${data.artist} - ${data.title}`, 'sittingonclouds')
 })
