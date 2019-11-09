@@ -1,5 +1,5 @@
 const tmi = require('tmi.js')
-const config = require('config.json')
+const config = require('./config.json')
 const options = {
   options: {
     debug: false
