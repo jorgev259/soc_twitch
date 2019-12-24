@@ -26,7 +26,7 @@ client.on('chat', (channel, userstate, message, self) => {
   }
 })
 
-var socket = require('socket.io-client')('https://api.sittingonclouds.net')
+var socket = require('socket.io-client')('https://api.squid-radio.net')
 socket.on('clouds', async (data) => {
   console.log(data)
   current = data
