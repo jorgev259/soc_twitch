@@ -27,7 +27,7 @@ client.on('chat', (channel, userstate, message, self) => {
 })
 
 var socket = require('socket.io-client')('https://api.sittingonclouds.net')
-socket.on('metadata', async (data) => {
+socket.on('clouds', async (data) => {
   console.log(data)
   current = data
   client.say('sittingonclouds', `Now Playing: ${data.artist} - ${data.title}`, 'sittingonclouds')
