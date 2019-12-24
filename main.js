@@ -22,7 +22,7 @@ client.connect()
 client.on('chat', (channel, userstate, message, self) => {
   console.log(message)
   if (message === '!playing' && current) {
-    client.say(channel, `Now Playing: ${current.artist} - ${current.title}`, 'sittingonclouds')
+    client.say(channel, `Now Playing: ${current.album} - ${current.artist} - ${current.title}`, 'sittingonclouds')
   }
 })
 
